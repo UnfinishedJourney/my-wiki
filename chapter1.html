@@ -6,20 +6,68 @@
     <title>Chapter 1: Discovering Today</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
-        }
-        h1, h2 {
             color: #333;
+        }
+        header {
+            background: #0073e6;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        h2 {
+            color: #0073e6;
+        }
+        p {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            text-decoration: none;
+            color: #0073e6;
+            font-weight: bold;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
-    <h1>Chapter 1: Discovering Today</h1>
-    <p>One of the differences between movie-quality rendering and real-time rendering is geometric complexity; movies generally have much higher geometric detail.
-       To improve geometric detail in real-time rendering, tessellation can be done in hardware. Although this has been available on ATI cards since the ATI Radeon 8500 in
-       2001, tessellation shaders were recently standardized and made part of OpenGL 4.0.
-    </p>
-    <a href="index.html">Back to Home</a>
+    <header>
+        <h1>Chapter 1: Discovering Today</h1>
+    </header>
+    <div class="container">
+        <p>
+            One of the differences between movie-quality rendering and real-time rendering is geometric complexity; movies generally have much higher geometric detail.
+            To improve geometric detail in real-time rendering, tessellation can be done in hardware. Although this has been available on ATI cards since the ATI Radeon 8500 in
+            2001, tessellation shaders were recently standardized and made part of OpenGL 4.0.
+        </p>
+        <a href="index.html">Back to Home</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 MyWiki</p>
+    </footer>
 </body>
 </html>
