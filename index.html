@@ -1,11 +1,186 @@
-<html lang = "en">
-    <head>
-        <meta charset = "UTF-8">
-        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <h1>MyWiki</h1>
-        <p>Lets get it started</p>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyWiki</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>MyWiki</h1>
+    <p>Let's get it started</p>
+
+    <h2>Complexity of Data Structures and Iterator Invalidations in C++</h2>
+
+    <h3>Complexity Comparison</h3>
+    <table>
+        <tr>
+            <th>Data Structure</th>
+            <th>Insert (Average)</th>
+            <th>Insert (Worst)</th>
+            <th>Access (Average)</th>
+            <th>Access (Worst)</th>
+            <th>Delete (Average)</th>
+            <th>Delete (Worst)</th>
+            <th>Space Complexity</th>
+        </tr>
+        <tr>
+            <td>`std::vector`</td>
+            <td class="highlight">O(1) amortized</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::deque`</td>
+            <td class="highlight">O(1) amortized</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::list`</td>
+            <td class="highlight">O(1)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::forward_list`</td>
+            <td class="highlight">O(1)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::set`</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::unordered_set`</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::map`</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td class="highlight">O(log n)</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>`std::unordered_map`</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td class="highlight">O(1)</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+        </tr>
+    </table>
+
+    <h3>Iterator Invalidations</h3>
+    <table>
+        <tr>
+            <th>Data Structure</th>
+            <th>Insert</th>
+            <th>Delete</th>
+            <th>Access</th>
+        </tr>
+        <tr>
+            <td>`std::vector`</td>
+            <td>All after insertion point</td>
+            <td>All after deletion point</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::deque`</td>
+            <td>All after insertion point</td>
+            <td>All after deletion point</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::list`</td>
+            <td class="highlight">Only the inserted element</td>
+            <td class="highlight">Only the deleted element</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::forward_list`</td>
+            <td class="highlight">Only the inserted element</td>
+            <td class="highlight">Only the deleted element</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::set`</td>
+            <td>Stable</td>
+            <td>Stable</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::unordered_set`</td>
+            <td>Stable</td>
+            <td>Stable</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::map`</td>
+            <td>Stable</td>
+            <td>Stable</td>
+            <td>Stable</td>
+        </tr>
+        <tr>
+            <td>`std::unordered_map`</td>
+            <td>Stable</td>
+            <td>Stable</td>
+            <td>Stable</td>
+        </tr>
+    </table>
+</body>
 </html>
