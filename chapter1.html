@@ -37,6 +37,20 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9f9f9;
+            padding: 2px 4px;
+            border-radius: 3px;
         }
         a {
             text-decoration: none;
@@ -59,20 +73,57 @@
         <h1>Chapter 1: Discovering Today</h1>
     </header>
     <div class="container">
-        <p>
-            Today one of the differences between movie-quality rendering and real-time rendering is geometric complexity; movies generally have much higher geometric detail.
-            As the gap between compute power and memory bandwidth continues to widen,
-procedural techniques become increasingly important. Small size is speed. Procedural textures not only have trivial memory requirements, but can also have excellent
-visual quality, allowing for analytic derivatives and anisotropic antialiasing.
-OpenGL SC, for safety critical, may be one of the lesser-known OpenGL variants.
-In the past 15 years, consumer GPUs have transformed from dedicated fixedfunction graphics processors to general-purpose massively-parallel processors.
-Some classics and all recent books agree on key topics 
-• modeling,
-• geometry,
-• transformations,
-• lighting and shading,
-• texture mapping and pixel processing.
-        </p>
+        <p>Today one of the differences between movie-quality rendering and real-time rendering is geometric complexity; movies generally have much higher geometric detail.</p>
+        <p>As the gap between compute power and memory bandwidth continues to widen, procedural techniques become increasingly important. Small size is speed. Procedural textures not only have trivial memory requirements, but can also have excellent visual quality, allowing for analytic derivatives and anisotropic antialiasing.</p>
+        <p>OpenGL SC, for safety critical, may be one of the lesser-known OpenGL variants. In the past 15 years, consumer GPUs have transformed from dedicated fixed-function graphics processors to general-purpose massively-parallel processors.</p>
+        <p>Some classics and all recent books agree on key topics:</p>
+        <ul>
+            <li>Modeling</li>
+            <li>Geometry</li>
+            <li>Transformations</li>
+            <li>Lighting and shading</li>
+            <li>Texture mapping and pixel processing</li>
+        </ul>
+        <p>This program draws a rectangle for an old pipeline:</p>
+        <pre><code>#include &lt;GL/glut.h&gt;
+void display(void) {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.5, -0.5);
+        glVertex2f(-0.5, 0.5);
+        glVertex2f(0.5, 0.5);
+        glVertex2f(0.5, -0.5);
+    glEnd();
+    glutSwapBuffers();
+}
+
+int main(int argc, char **argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+    glutCreateWindow("Hello World");
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}
+</code></pre>
+        <p>There are three major issues with this code and all its extensions:</p>
+        <ol>
+            <li>Use of immediate mode.</li>
+            <li>Reliance on the fixed-function pipeline.</li>
+            <li>Use of default values for state variables.</li>
+        </ol>
+        <p>As soon as each vertex is generated, it triggers an execution of the vertex shader. Because this geometry processing is carried out on the GPU by the vertex shader, this simple program requires four separate vertex positions to be sent to the GPU each time we want to display the rectangle.</p>
+        <p>This type of program leads to a somewhat outdated view of OpenGL as a state machine.</p>
+        <p>A shader-based program requires at least a vertex shader and a fragment shader.</p>
+        <p>The biggest problem in introducing shaders is that the application must read, compile, and link the shaders with the application. These operations require a set of OpenGL functions that contribute little to the student’s understanding of basic graphics concepts. Consequently, we decided to give the students a function, <code>InitShaders</code>, that reads in the shader files, compiles them, links them, and, if successful, returns a program object, as in the code fragment:</p>
+        <pre><code>GLuint program = InitShaders("vertex_shader_file", "fragment_shader_file");</code></pre>
+        <p>Even the simplest application program can be divided into three parts: an initialization that sets up the shaders and the interface with the window system, a stage that forms the data and sends the data to the GPU, and a stage that renders the data on the GPU.</p>
+        <p>Starting with OpenGL 3.1, triangles are the only filled type that is supported.</p>
+        <p>Computer graphics is built on some basic geometric concepts. Every introductory computer graphics class introduces the basic types (scalars, points, vectors), simple objects (triangles, planes, polylines), and methods of representation (coordinate systems, frames).</p>
+        <p>With the standard immediate-mode approach, when students are asked to see how close their programs come to the advertised ratings of their graphics card, they are amazed and perplexed with how poorly their programs perform. With the flexibility of newer versions of OpenGL, students can try various strategies and achieve performances close to spec. In addition, if they use a compatibility profile, they can compare immediate-mode and retained-mode performance.</p>
+        <p>We introduce the standard affine transformations—translation, rotation, scaling, shear—and how to build them. We then move on to projective transformations and derive from them the standard orthographic and perspective transformations.</p>
+        <p>Some instructors are interested in teaching about quaternions as part of a discussion on rotation. Quaternions can be implemented with just a few lines of code in a shader and thus fit well into a shader-based course.</p>
+        <p>When students implement a lighting shader, they must provide a normal matrix because the state variable <code>glNormalMatrix</code> has been deprecated. Students can either implement this matrix themselves, either in the application or the shader, or a normal matrix function can be added to the <code>mat.h</code> file.</p>
         <a href="index.html">Back to Home</a>
     </div>
     <footer>
